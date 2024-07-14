@@ -1,101 +1,56 @@
 import java.util.Scanner;
 
-// Class to represent the user's bank account
-class BankAccount {
-    private double balance;
+import javax.swing.JOptionPane;
 
-    public BankAccount(double initialBalance) {
-        this.balance = initialBalance;
+public class AtmInterface {
+    static void checkBalance(int x){
+        System.out.println("Your current balance is: " + x);
     }
-
-    public double getBalance() {
+    static int deposit(int x, int y){
+        System.out.print("How much would you like to deposit?");
+        
+        int balance = x + y;
+        System.out.println("Your new balance is: " + balance);
         return balance;
     }
-
-    public void deposit(double amount) {
-        balance += amount;
+    static int withdraw(int x, int y){
+        int balance = x-y;
+        System.out.println(y+" withdrawn from your account. Your balance amount is: "+balance);
+        return balance;
     }
-
-    public boolean withdraw(double amount) {
-        if (balance >= amount) {
-            balance -= amount;
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
-// Class to represent the ATM machine
-class ATM {
-    private BankAccount account;
-
-    public ATM(BankAccount account) {
-        this.account = account;
-    }
-
-    public void displayMenu() {
-        System.out.println("ATM Menu:");
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your initial amount:");
+        int amount = Integer.parseInt(JOptionPane.showInputDialog("Enter your initial amount:"));
+        //int amount = sc.nextInt();
+        while (true) {
         System.out.println("1. Check Balance");
         System.out.println("2. Deposit");
         System.out.println("3. Withdraw");
         System.out.println("4. Exit");
-    }
-
-    public void checkBalance() {
-        System.out.println("Your current balance is: $" + account.getBalance());
-    }
-
-    public void deposit() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter amount to deposit: $");
-        double amount = scanner.nextDouble();
-        account.deposit(amount);
-        System.out.println("Deposit successful. Your new balance is: $" + account.getBalance());
-    }
-
-    public void withdraw() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter amount to withdraw: $");
-        double amount = scanner.nextDouble();
-        if (account.withdraw(amount)) {
-            System.out.println("Withdrawal successful. Your new balance is: $" + account.getBalance());
-        } else {
-            System.out.println("Insufficient balance. Withdrawal failed.");
+        int choice = sc.nextInt();
+        if (choice ==1) {
+            checkBalance(amount);
         }
-    }1
+        else if(choice ==2){
+            System.out.println("Enter amount to deposite:");
+            int deposit = sc.nextInt();
+            amount = deposit(amount, deposit);
 
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-        do {
-            displayMenu();
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    checkBalance();
-                    break;
-                case 2:
-                    deposit();
-                    break;
-                case 3:
-                    withdraw();
-                    break;
-                case 4:
-                    System.out.println("Exiting ATM. Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        } while (choice != 4);
-    }
-}
+        }
+        else if(choice ==3){
+            System.out.println("Enter amount to withdraw:");
+            int withdraw = sc.nextInt();
+            amount = withdraw(amount, withdraw);
+        }
+        else if(choice ==4){
+            break;
+        }
+        else {
+            System.out.println("Invalid choice");
+        }
+            
+        }
 
-public class AtmInterface {
-    public static void main(String[] args) {
-        BankAccount account = new BankAccount(1000.0); // Initial balance of $1000
-        ATM atm = new ATM(account);
-        atm.run();
     }
 }
