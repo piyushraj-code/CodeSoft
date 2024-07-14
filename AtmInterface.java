@@ -21,8 +21,7 @@ public class AtmInterface {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your initial amount:");
-        int amount = Integer.parseInt(JOptionPane.showInputDialog("Enter your initial amount:"));
-        //int amount = sc.nextInt();
+        int amount = sc.nextInt();
         while (true) {
         System.out.println("1. Check Balance");
         System.out.println("2. Deposit");
